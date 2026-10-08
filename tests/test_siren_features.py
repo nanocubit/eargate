@@ -2,8 +2,8 @@
 import numpy as np
 import pytest
 
-from siren_features import extract_features
 from siren_config import N_FEATURES, SAMPLE_RATE
+from siren_features import extract_features
 
 
 def _tone(freq: float, duration: float = 3.0, sr: int = SAMPLE_RATE) -> np.ndarray:

@@ -1,8 +1,8 @@
 """Тесты кольцевого буфера детектора."""
 import numpy as np
 
-from siren_detector import CircularBuffer
 from siren_config import CHUNK_SAMPLES
+from siren_detector import CircularBuffer
 
 
 def test_initial_buffer_is_zeroed():

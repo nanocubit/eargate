@@ -1,10 +1,16 @@
 """Извлечение 48 признаков из аудиофрагмента. Один STFT, ранний выход."""
-import numpy as np
 import librosa
+import numpy as np
 
 from siren_config import (
-    SAMPLE_RATE, N_MFCC, N_FFT, HOP_LENGTH_MFCC, N_MELS,
-    SIREN_FREQ_MIN, SIREN_FREQ_MAX, N_FEATURES,
+    HOP_LENGTH_MFCC,
+    N_FEATURES,
+    N_FFT,
+    N_MELS,
+    N_MFCC,
+    SAMPLE_RATE,
+    SIREN_FREQ_MAX,
+    SIREN_FREQ_MIN,
 )
 
 

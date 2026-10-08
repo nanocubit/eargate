@@ -1,12 +1,12 @@
 """Provider API webhook для Яндекс УДЯ + /health."""
 import json
 import logging
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
-from siren_config import DEVICES, BARRIER_RELAY_DEVICE_ID, RELAY_PULSE_SECONDS
 import siren_config as cfg
-from user_id_store import save_user_id, clear_user_id
 from relay_control import pulse as relay_pulse
+from siren_config import BARRIER_RELAY_DEVICE_ID, DEVICES, RELAY_PULSE_SECONDS
+from user_id_store import clear_user_id, save_user_id
 
 logger = logging.getLogger("webhook")
 

@@ -1,7 +1,13 @@
 """Тесты конфигурации проекта."""
 from siren_config import (
-    N_FEATURES, N_MFCC, SIREN_CLASSES, CHUNK_SAMPLES, SAMPLE_RATE,
-    CHUNK_DURATION, HOP_SAMPLES, HOP_DURATION,
+    CHUNK_DURATION,
+    CHUNK_SAMPLES,
+    HOP_DURATION,
+    HOP_SAMPLES,
+    N_FEATURES,
+    N_MFCC,
+    SAMPLE_RATE,
+    SIREN_CLASSES,
 )
 
 

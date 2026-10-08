@@ -9,12 +9,15 @@ import time
 
 import requests
 
-from siren_config import (
-    YANDEX_NOTIFY_URL, OAUTH_TOKEN, DEVICES,
-    SENSOR_RESET_DELAY, RELAY_PULSE_SECONDS,
-)
 import siren_config as cfg
 from relay_control import pulse as relay_pulse
+from siren_config import (
+    DEVICES,
+    OAUTH_TOKEN,
+    RELAY_PULSE_SECONDS,
+    SENSOR_RESET_DELAY,
+    YANDEX_NOTIFY_URL,
+)
 
 logger = logging.getLogger("notifier")
 

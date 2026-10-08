@@ -88,8 +88,8 @@ def download_all():
 
 def build_features():
     """Собирает X, y из dataset/raw/. Для дообучения модели."""
-    from siren_features import extract_features
     from siren_config import SIREN_CLASSES
+    from siren_features import extract_features
 
     X, y = [], []
     label_map = {v: k for k, v in SIREN_CLASSES.items()}

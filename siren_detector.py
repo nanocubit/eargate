@@ -20,11 +20,21 @@ import numpy as np
 import soundfile as sf
 
 from siren_config import (
-    SAMPLE_RATE, CHUNK_SAMPLES, HOP_SAMPLES, HOP_DURATION,
-    ENERGY_THRESHOLD, CONSECUTIVE_HITS, COOLDOWN_SECONDS,
-    CONFIDENCE_THRESHOLD, PROBA_HISTORY_LEN, MIN_SIREN_DURATION,
-    SIREN_CLASSES, SIREN_LABELS_RU,
-    DETECTION_LOG_DIR, MAX_LOG_AGE_DAYS, MAX_LOG_SIZE_MB,
+    CHUNK_SAMPLES,
+    CONFIDENCE_THRESHOLD,
+    CONSECUTIVE_HITS,
+    COOLDOWN_SECONDS,
+    DETECTION_LOG_DIR,
+    ENERGY_THRESHOLD,
+    HOP_DURATION,
+    HOP_SAMPLES,
+    MAX_LOG_AGE_DAYS,
+    MAX_LOG_SIZE_MB,
+    MIN_SIREN_DURATION,
+    PROBA_HISTORY_LEN,
+    SAMPLE_RATE,
+    SIREN_CLASSES,
+    SIREN_LABELS_RU,
 )
 
 logger = logging.getLogger("detector")
@@ -179,7 +189,7 @@ class RealTimeSirenDetector:
                         break
                     chunk = np.frombuffer(raw, dtype=np.float32)
                     self._process(chunk, on_detect)
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001 — ffmpeg может упасть с чем угодно
                 logger.error("RTSP прерван: %s. Реконнект через 5с", e)
                 time.sleep(5)
 

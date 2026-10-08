@@ -15,7 +15,7 @@ _impulse_gen = 0
 _HAS_GPIO = False
 
 try:
-    import RPi.GPIO as GPIO
+    from RPi import GPIO
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
     GPIO.setup(_RELAY_PIN, GPIO.OUT, initial=GPIO.HIGH)
@@ -57,7 +57,6 @@ def pulse(duration: float = 2.0):
 
 
 def cleanup():
-    global _release_timer
     if _release_timer and _release_timer.is_alive():
         _release_timer.cancel()
     if _HAS_GPIO:

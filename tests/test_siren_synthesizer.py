@@ -1,12 +1,19 @@
 """Тесты генераторов синтетических сигналов и аугментаций."""
 import numpy as np
 
-from siren_synthesizer import (
-    generate_wail, generate_yelp, generate_hilo, generate_airhorn,
-    add_doppler, add_reverb, add_distortion, add_noise,
-    add_traffic_noise, augment,
-)
 from siren_config import SAMPLE_RATE
+from siren_synthesizer import (
+    add_distortion,
+    add_doppler,
+    add_noise,
+    add_reverb,
+    add_traffic_noise,
+    augment,
+    generate_airhorn,
+    generate_hilo,
+    generate_wail,
+    generate_yelp,
+)
 
 
 def _assert_same_length(signal: np.ndarray, original: np.ndarray):

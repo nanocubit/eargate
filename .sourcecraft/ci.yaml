@@ -39,4 +39,4 @@ tasks:
         script:
           - apt-get update && apt-get install -y --no-install-recommends libsndfile1 libgomp1
           - pip install --quiet -r requirements.txt pytest
-          - pytest tests/ -v
+          - python -m pytest tests/ -v

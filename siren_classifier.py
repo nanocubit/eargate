@@ -1,16 +1,20 @@
 """SVM-классификатор сирен с калибровкой вероятностей."""
 import logging
+
 import joblib
 import numpy as np
-from sklearn.svm import SVC
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
 from sklearn.calibration import CalibratedClassifierCV
-from sklearn.metrics import classification_report, accuracy_score
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
 
 from siren_config import (
-    MODEL_PATH, SCALER_PATH, SIREN_CLASSES,
-    CONFIDENCE_THRESHOLD, N_FEATURES,
+    CONFIDENCE_THRESHOLD,
+    MODEL_PATH,
+    N_FEATURES,
+    SCALER_PATH,
+    SIREN_CLASSES,
 )
 from siren_features import extract_features
 

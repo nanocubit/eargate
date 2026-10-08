@@ -3,19 +3,21 @@ import logging
 import sys
 import threading
 
+import siren_config as cfg
+from relay_control import cleanup as relay_cleanup
+from siren_classifier import SirenClassifier
 from siren_config import (
     AUDIO_SOURCE,
-    MIC_ENTRY_DEVICE_INDEX, MIC_EXIT_DEVICE_INDEX,
-    RTSP_AUDIO_URL_ENTRY, RTSP_AUDIO_URL_EXIT,
+    MIC_ENTRY_DEVICE_INDEX,
+    MIC_EXIT_DEVICE_INDEX,
+    RTSP_AUDIO_URL_ENTRY,
+    RTSP_AUDIO_URL_EXIT,
     WEBHOOK_PORT,
 )
-import siren_config as cfg
-from siren_classifier import SirenClassifier
 from siren_detector import RealTimeSirenDetector
-from yandex_notifier import send_siren_event
-from webhook import run_webhook, set_detector_threads
 from user_id_store import load_user_id
-from relay_control import cleanup as relay_cleanup
+from webhook import run_webhook, set_detector_threads
+from yandex_notifier import send_siren_event
 
 logging.basicConfig(
     level=logging.INFO,

@@ -1,7 +1,7 @@
 """Синтетический датасет с доплером, реверберацией, искажениями, шумом."""
 import numpy as np
 
-from siren_config import SAMPLE_RATE, CHUNK_DURATION
+from siren_config import CHUNK_DURATION, SAMPLE_RATE
 from siren_features import extract_features
 
 SAMPLES_PER_CHUNK = int(SAMPLE_RATE * CHUNK_DURATION)
