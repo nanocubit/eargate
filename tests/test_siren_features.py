@@ -14,10 +14,22 @@ def _tone(freq: float, duration: float = 3.0, sr: int = SAMPLE_RATE) -> np.ndarr
 
 def test_silence_returns_zero_features_and_out_of_band():
     """Тишина: энергия в полосе сирен < 30% → нулевой вектор, False."""
-    audio = (np.random.randn(SAMPLE_RATE * 3) * 0.001).astype(np.float32)
+    audio = np.zeros(SAMPLE_RATE * 3, dtype=np.float32)
     features, in_band = extract_features(audio)
     assert in_band is False
     assert features.shape == (N_FEATURES,)
+    assert np.all(features == 0)
+
+
+def test_very_quiet_noise_returns_zero_features_and_out_of_band():
+    """Очень тихий белый шум: ниже ENERGY-подобного уровня, полоса 150–2000 Гц.
+
+    Плоский спектр шума даёт долю энергии в узкой полосе ниже порога 30%.
+    """
+    rng = np.random.default_rng(0)
+    audio = (rng.standard_normal(SAMPLE_RATE * 3) * 1e-4).astype(np.float32)
+    features, in_band = extract_features(audio)
+    assert in_band is False
     assert np.all(features == 0)
 
 
@@ -57,10 +69,13 @@ def test_features_deterministic():
 
 
 def test_abs_rms_present_in_features():
-    """RMS попадает в признаки (26-й элемент после MFCC-блоков 13+13)."""
+    """abs_rms — 43-й элемент (индекс 42) после MFCC-блоков 13+13+13 и 2 центроидов."""
     audio = _tone(800) * 0.5
     features, in_band = extract_features(audio)
     assert in_band is True
     expected_rms = float(np.sqrt(np.mean(audio ** 2)))
-    # abs_rms — 40-й элемент по индексации (13+13+13+2+1)
-    assert features[39] == pytest.approx(expected_rms, rel=1e-4)
+    # Порядок: 13 mfcc_mean + 13 mfcc_std + 13 delta_mean
+    # + [centroid_mean, centroid_std] + [zcr_mean] + [abs_rms]
+    assert features[42] == pytest.approx(expected_rms, rel=1e-4)
+    # centroid_mean тона 800 Гц должен быть близок к 800
+    assert features[39] == pytest.approx(800, rel=0.05)
