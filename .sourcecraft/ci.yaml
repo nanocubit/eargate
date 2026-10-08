@@ -1,0 +1,32 @@
+on:
+  push:
+    - workflows: [checks]
+      filter:
+        branches: [main]
+
+  pull_request:
+    - workflows: [checks]
+      filter:
+        target_branches: [main]
+
+workflows:
+  checks:
+    tasks:
+      - lint
+      - syntax-check
+
+tasks:
+  - name: lint
+    cubes:
+      - name: ruff
+        image: python:3.11-slim
+        script:
+          - pip install --quiet ruff
+          - ruff check .
+
+  - name: syntax-check
+    cubes:
+      - name: compileall
+        image: python:3.11-slim
+        script:
+          - python -m compileall -q .
