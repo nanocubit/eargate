@@ -21,13 +21,9 @@ def test_silence_returns_zero_features_and_out_of_band():
     assert np.all(features == 0)
 
 
-def test_very_quiet_noise_returns_zero_features_and_out_of_band():
-    """Очень тихий белый шум: ниже ENERGY-подобного уровня, полоса 150–2000 Гц.
-
-    Плоский спектр шума даёт долю энергии в узкой полосе ниже порога 30%.
-    """
-    rng = np.random.default_rng(0)
-    audio = (rng.standard_normal(SAMPLE_RATE * 3) * 1e-4).astype(np.float32)
+def test_low_frequency_tone_rejected():
+    """Тон 50 Гц — вся энергия ниже полосы 150–2000 Гц → ранний выход."""
+    audio = _tone(50)
     features, in_band = extract_features(audio)
     assert in_band is False
     assert np.all(features == 0)

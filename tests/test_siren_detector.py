@@ -42,8 +42,8 @@ def test_write_chunk_larger_than_buffer():
 def test_full_cycle_realistic_size():
     """Реалистичный сценарий: буфер 3 сек, запись чанками по 0.5 сек.
 
-    12 чанков = 6 сек аудио, буфер хранит последние 3 сек,
-    т.е. последние 6 чанков (значения 6..11).
+    12 чанков = 6 сек аудио, буфер вмещает ровно 6 чанков (3 сек),
+    поэтому в нём остаются значения 6..11, по одному чанку на значение.
     """
     buf = CircularBuffer(CHUNK_SAMPLES)
     hop = CHUNK_SAMPLES // 6
@@ -52,11 +52,6 @@ def test_full_cycle_realistic_size():
         buf.write(chunk)
     data = buf.read()
     expected = np.concatenate([
-        np.full(hop * 4, 6.0, dtype=np.float32),
-        np.full(hop, 7.0, dtype=np.float32),
-        np.full(hop, 8.0, dtype=np.float32),
-        np.full(hop, 9.0, dtype=np.float32),
-        np.full(hop, 10.0, dtype=np.float32),
-        np.full(hop, 11.0, dtype=np.float32),
+        np.full(hop, float(i), dtype=np.float32) for i in range(6, 12)
     ])
     np.testing.assert_allclose(data, expected)
