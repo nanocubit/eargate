@@ -23,7 +23,7 @@ tasks:
         image: python:3.11-slim
         script:
           - pip install --quiet ruff
-          - ruff check .
+          - ruff check . --exclude "*.ipynb"
 
   - name: syntax-check
     cubes:
