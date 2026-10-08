@@ -1,1 +1,21 @@
+[Unit]
+Description=EarGate — acoustic siren detection for barrier control
+After=network-online.target sound.target
+Wants=network-online.target
 
+[Service]
+Type=simple
+User=pi
+Group=pi
+SupplementaryGroups=gpio audio
+WorkingDirectory=/opt/eargate
+EnvironmentFile=/opt/eargate/.env
+ExecStart=/opt/eargate/venv/bin/python main.py run
+Restart=always
+RestartSec=5
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

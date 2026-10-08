@@ -1,1 +1,15 @@
+[Unit]
+Description=Cloudflare Tunnel for EarGate webhook
+After=network-online.target
+Wants=network-online.target
 
+[Service]
+Type=simple
+User=pi
+Group=pi
+ExecStart=/usr/local/bin/cloudflared tunnel run eargate
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
